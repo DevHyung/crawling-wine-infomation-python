@@ -65,7 +65,6 @@ if __name__ == "__main__":
     time.sleep(3)
 
     # Get scroll height
-
     idx = 1
     while True:
         # Scroll down to bottom
@@ -80,13 +79,20 @@ if __name__ == "__main__":
             new_height = driver.execute_script("return document.body.scrollHeight")
             if new_height == last_height:
                 idx += 1
-                print("걸림")
                 break
             else:
                 idx = 1
             last_height = new_height
         if idx == 50:
             break
-
     time.sleep(3)
+    # === save
+    bs4 = BeautifulSoup(open('html.txt', encoding='utf8').read(), 'lxml')
+    divs = bs4.find_all('div', class_='capture capture--feed-capture')
+    for div in divs:
+        # print(div.find('h1',class_='capture-header__name').get_text())
+        if div.a['href'] != '':
+            print('https://delectable.com' + div.a['href'])
+
+    input("하이::")
     driver.quit()
