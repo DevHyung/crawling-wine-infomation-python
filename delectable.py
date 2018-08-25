@@ -65,11 +65,11 @@ if __name__ == "__main__":
     time.sleep(3)
 
     # Get scroll height
-    last_height = driver.execute_script("return document.body.scrollHeight")
 
+    idx = 1
     while True:
-        idx = 1
         # Scroll down to bottom
+        last_height = driver.execute_script("return document.body.scrollHeight")
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
         while True:
@@ -79,12 +79,13 @@ if __name__ == "__main__":
             # Calculate new scroll height and compare with last scroll height
             new_height = driver.execute_script("return document.body.scrollHeight")
             if new_height == last_height:
+                idx += 1
+                print("걸림")
                 break
-            idx += 1
-            if idx == 100:
-                break
+            else:
+                idx = 1
             last_height = new_height
-        if idx == 100:
+        if idx == 50:
             break
 
     time.sleep(3)
