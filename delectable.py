@@ -2,8 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import os
-from openpyxl import load_workbook
-from openpyxl import Workbook
+from openpyxl import load_workbook,Workbook
+import time
 
 def get_bs_obejct_by_url(url):
     html = requests.get(url)
@@ -55,10 +55,37 @@ if __name__ == "__main__":
     ''' --------------------------------- INPUT YOUR CONFIG --------------------------------- '''
     FILENAME = "delectable.xlsx"
     HEADER = ['와인 이름', '와이너리 이름', '생산지 정보', '품종 정보', '푸드 페어링', '평가 정보']
+    SCROLL_PAUSE_TIME = 0.1
     #save_excel(FILENAME,None,HEADER)
     ''' ------------------------------------------------------------------------------------- '''
 
-    #driver = webdriver.Chrome('./chromedriver')
+    driver = webdriver.Chrome('./chromedriver')
+    driver.maximize_window()
+    driver.get('https://delectable.com/categories/rich-and-bold')
+    time.sleep(3)
 
+    # Get scroll height
+    last_height = driver.execute_script("return document.body.scrollHeight")
 
-    'https://delectable.com/categories/rich-and-bold '
+    while True:
+        idx = 1
+        # Scroll down to bottom
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+        while True:
+            # Wait to load page
+            time.sleep(SCROLL_PAUSE_TIME)
+
+            # Calculate new scroll height and compare with last scroll height
+            new_height = driver.execute_script("return document.body.scrollHeight")
+            if new_height == last_height:
+                break
+            idx += 1
+            if idx == 100:
+                break
+            last_height = new_height
+        if idx == 100:
+            break
+
+    time.sleep(3)
+    driver.quit()
