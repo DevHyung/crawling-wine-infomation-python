@@ -1,4 +1,3 @@
-
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -6,9 +5,12 @@ import os
 from openpyxl import load_workbook
 from openpyxl import Workbook
 
-#html = requests.get('https://delectable.com/wine/hamilton-russell-vineyards/hemel-en-aarde-valley-chardonnay')
-#bs4 = BeautifulSoup(html.text,'lxml')
-#print(bs4.prettify())
+def get_bs_obejct_by_url(url):
+    html = requests.get(url)
+    # print(html.encoding) # ISO-8859-1 인코딩나와서
+    #html.encoding = 'euc-kr'  # 한글 인코딩으로 변환
+    return BeautifulSoup(html.text, 'lxml')
+
 def log(tag, text):
 	# Info tag
 	if(tag == 'i'):
@@ -41,9 +43,22 @@ def save_excel(_FILENAME,_DATA,_HEADER):
         sheet.column_dimensions['F'].width = 20
         book.save(_FILENAME)
 
-
+def get_category():
+    linkList = []
+    bs4 = get_bs_obejct_by_url('https://delectable.com/categories/')
+    divs = bs4.find_all('div', class_='categories-list__section__category')
+    for div in divs:
+        linkList.append('https://delectable.com' + div.a['href'])
+    return linkList
 
 if __name__ == "__main__":
+    ''' --------------------------------- INPUT YOUR CONFIG --------------------------------- '''
     FILENAME = "delectable.xlsx"
     HEADER = ['와인 이름', '와이너리 이름', '생산지 정보', '품종 정보', '푸드 페어링', '평가 정보']
-    save_excel(FILENAME,None,HEADER)
+    #save_excel(FILENAME,None,HEADER)
+    ''' ------------------------------------------------------------------------------------- '''
+
+    #driver = webdriver.Chrome('./chromedriver')
+
+
+    'https://delectable.com/categories/rich-and-bold '
