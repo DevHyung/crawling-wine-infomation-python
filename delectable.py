@@ -54,7 +54,7 @@ def get_category():
 if __name__ == "__main__":
     ''' --------------------------------- INPUT YOUR CONFIG --------------------------------- '''
     FILENAME = "delectable.xlsx"
-    HEADER = ['와인 이름', '와이너리 이름', '생산지 정보', '품종 정보', '푸드 페어링', '평가 정보']
+    HEADER = ['카테고리','와인 이름', '와이너리 이름', '생산지 정보', '품종 정보', '푸드 페어링', '평가 정보']
     SCROLL_PAUSE_TIME = 0.1
     #save_excel(FILENAME,None,HEADER)
     ''' ------------------------------------------------------------------------------------- '''
@@ -87,12 +87,18 @@ if __name__ == "__main__":
             break
     time.sleep(3)
     # === save
+    linkList = []
     bs4 = BeautifulSoup(open('html.txt', encoding='utf8').read(), 'lxml')
     divs = bs4.find_all('div', class_='capture capture--feed-capture')
     for div in divs:
         # print(div.find('h1',class_='capture-header__name').get_text())
         if div.a['href'] != '':
             print('https://delectable.com' + div.a['href'])
+            linkList.append('https://delectable.com' + div.a['href'])
 
-    input("하이::")
+    linkFile = input(">>> 파일명을 입력하세요 ::")
+    f = open(linkFile,'w')
+    for link in linkList:
+        f.write(link+'\n')
+    f.close()
     driver.quit()
