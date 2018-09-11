@@ -8,9 +8,9 @@ def save_excel(_FILENAME, _DATA, _HEADER):
             return None
         book = load_workbook(_FILENAME)
         sheet = book.active
-        sheet.append(_DATA)
-        #for depth1List in _DATA:
-            #sheet.append(depth1List)
+        #sheet.append(_DATA)
+        for depth1List in _DATA:
+            sheet.append(depth1List)
         book.save(_FILENAME)
     else:  # 새로만드는건
         if _HEADER == None:
@@ -48,6 +48,7 @@ START = int(input(">>> 시작 URL 번호(행) 입력 :")) - 1 # 715550
 END = int(input(">>> 끝 URL 번호(행) 입력 : "))        # 737780
 lines = open('vivino_url_list.txt').readlines()[START:END]
 idx = START + 1
+tmp = []
 for url in lines:
     print("{}번째 : {} 실행중..".format(idx, url.strip()))
     idx += 1
@@ -110,5 +111,9 @@ for url in lines:
     dataList.append(country)
     dataList.append(averLabel+' '+averValue)
     dataList.append(summary)
-    save_excel(FILENAME,dataList,None)
+    tmp.append(dataList)
+    if len(tmp) == 100:
+        save_excel(FILENAME,tmp,None)
+        tmp.clear()
+save_excel(FILENAME,tmp,None)
 f2.close()
