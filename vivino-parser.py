@@ -11,8 +11,8 @@ total = 737780
 pageLimit = int(total / 25)+1 # 29512
 url = 'https://www.vivino.com/api/explore/explore?country_code=kr&currency_code=KRW&grape_filter=varietal&merchant_id=&min_rating=1&order_by=&order=desc&page={}&price_range_max=500000&price_range_min=0&wine_type_ids[]=1&wine_type_ids[]=2&wine_type_ids[]=3&wine_type_ids[]=4&wine_type_ids[]=7&wine_type_ids[]=24'
 #===
-START = 1000
-END = 1100
+START = 1
+END = 100
 while True:
     print("{} ~ {} 까지 파싱시작".format(START,END))
     f = open('미완/{}~{}.txt'.format(START,END),'w')
@@ -30,6 +30,7 @@ while True:
                 #print('없음::','https://www.vivino.com/wines/'+name)
                 f.write('https://www.vivino.com/wines/'+name+ '\n')
     f.close()
+
     START = END
     END += 100
     if END > 737780 and END == 737880 + 1:

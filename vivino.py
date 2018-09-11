@@ -38,14 +38,14 @@ FILENAME = input(">>> 저장할 파일이름만 적어주세요(확장자미포�
 HEADER = ['Winery','Name', 'Region', 'Country', 'Rating', 'Summary']
 # init
 save_excel(FILENAME,None,HEADER)
-f2 = open(FILENAME+'_except.txt','a')
+f2 = open('예외/'+FILENAME+'_except.txt','a')
 '''---------------------------------------------------'''
 # 1 ~ 500  = 0번부터 499 까지
 # 500 ~ 1000 = 499부터
 #
 print(">>> EX )  시작 1, 끝 5을  1번째부터 5번째까지 파싱합니다.")
-START = int(input(">>> 시작 URL 번호(행) 입력 :")) - 1
-END = int(input(">>> 끝 URL 번호(행) 입력 : "))
+START = int(input(">>> 시작 URL 번호(행) 입력 :")) - 1 # 715550
+END = int(input(">>> 끝 URL 번호(행) 입력 : "))        # 737780
 lines = open('vivino_url_list.txt').readlines()[START:END]
 idx = START + 1
 for url in lines:
@@ -53,7 +53,11 @@ for url in lines:
     idx += 1
     dataList = []
     #
-    html = requests.get(url.strip(),headers=header)
+    try:
+        html = requests.get(url.strip(),timeout=20,headers=header)
+    except:
+        print('@@@')
+        continue
     bs4 = BeautifulSoup(html.text,'lxml')
     #
     try:
