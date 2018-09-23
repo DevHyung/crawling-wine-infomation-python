@@ -27,7 +27,6 @@ def save_excel(_FILENAME, _DATA, _HEADER):
         sheet.column_dimensions['E'].width = 20
         sheet.column_dimensions['F'].width = 40
         book.save(_FILENAME)
-
 header = {
 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36',
 'x-requested-with': 'XMLHttpRequest',
