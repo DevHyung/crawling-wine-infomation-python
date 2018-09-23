@@ -88,7 +88,6 @@ for url in lines:
         averValue = bs4.find('div',class_='wine-page__header__information__details__average-rating__value__number').get_text().strip()
     except:
         averValue = '-'
-    #
     divs = bs4.find_all('div',class_='wine-page__summary__item')
     summary = ""
     for div in divs:
