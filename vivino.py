@@ -27,7 +27,6 @@ def save_excel(_FILENAME, _DATA, _HEADER):
         sheet.column_dimensions['E'].width = 20
         sheet.column_dimensions['F'].width = 40
         book.save(_FILENAME)
-
 header = {
 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36',
 'x-requested-with': 'XMLHttpRequest',
@@ -88,7 +87,6 @@ for url in lines:
         averValue = bs4.find('div',class_='wine-page__header__information__details__average-rating__value__number').get_text().strip()
     except:
         averValue = '-'
-    #
     divs = bs4.find_all('div',class_='wine-page__summary__item')
     summary = ""
     for div in divs:
