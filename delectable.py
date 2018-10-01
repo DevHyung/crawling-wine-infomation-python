@@ -54,11 +54,11 @@ def get_category():
     return linkList,titleList
 
 if __name__ == "__main__":
-    #linkList, titleList = get_category()
-    #f = open("category.txt",'w',encoding='utf8')
-    #for idx in range(len(linkList)):
-        #f.write("{}@@@{}\n".format(titleList[idx],linkList[idx]))
-    #f.close()
+    linkList, titleList = get_category()
+    f = open("category.txt",'w',encoding='utf8')
+    for idx in range(len(linkList)):
+        f.write("{}@@@{}\n".format(titleList[idx],linkList[idx]))
+    f.close()
     #exit(-1)
     f = open('category.txt')
     lines = f.readlines()
