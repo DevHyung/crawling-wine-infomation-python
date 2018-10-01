@@ -22,7 +22,6 @@ def save_excel(_FILENAME, _DATA, _HEADER):
         sheet.append(_HEADER)
         sheet.column_dimensions['A'].width = 20
         sheet.column_dimensions['B'].width = 20
-
         sheet.column_dimensions['C'].width = 20
         sheet.column_dimensions['D'].width = 20
         sheet.column_dimensions['E'].width = 20
