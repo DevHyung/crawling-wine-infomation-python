@@ -1,3 +1,8 @@
 # python interpreter folder
 .idea/
 chromedriver
+chromedriver.exe
+__pycache__/
+dist/
+build/
+*.xlsx
